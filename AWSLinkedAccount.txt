@@ -1,0 +1,18 @@
+AWS Linked Account Query
+========================
+
+db.getCollection('resource_wise_billing_daily').aggregate({$match: { $and: [{
+
+"service_account_id" : ObjectId("651505b935d00a0491f51ff2"),
+   "LinkedAccountId" : "364131552933",    
+    "year" : "2023-11",
+}
+]}}
+,{
+$group: {
+_id: null,
+"TotalAmount": {
+$sum: "$ResourceCost"
+}
+}
+} )

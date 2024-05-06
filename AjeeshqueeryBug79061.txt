@@ -1,0 +1,17 @@
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate([{"$match":{
+'service_account_id" : ObjectId("6597f3ea0b48ed6150d9ee47′′),
+{"$group":{"_id":"$year",
+"cost":{"$sum":"$ResourceCost"}}}])
+
+
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate([{"$match":{
+'service_account_id" : ObjectId("6597f3ea0b48ed6150d9ee47′′),
+}},
+{"$group":{"_id":"$year",
+"cost":{"$sum":"$ResourceCost"}}}])
+
+
+db.getCollection('account_summary_v2').find({
+"service_account_id" : ObjectId("6597f3ea0b48ed6150d9ee47′′),})

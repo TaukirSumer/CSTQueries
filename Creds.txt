@@ -1,0 +1,76 @@
+
+Env:-
+1.Dev3
+2.QA
+3.Sandbox SB
+4.Production 
+
+Report Type:-
+1.BI
+2.SSRS 
+
+=====================================================================================
+
+Creds :- 
+
+# 1)
+# QA
+# user name: ajay_msp
+# pwd: Ria@2022
+# qa.corestack.io
+
+# 2)
+# Prod EU :
+# portal.corestack.io
+# user: eu-ajay
+# pwd : core@123
+
+
+# 3)
+# user name: Ajay
+# pwd: Ria@2022
+# in.corestack.io
+# AWS Orphaned Resources
+
+# 4)
+# Jira
+# https://dev.azure.com/CoreStack-Tech/Product_Mgmt/_workitems
+# Ria@20233
+# ajay.sharma@corestack.io
+
+# 5)
+# VPN Forticlient
+# Connection name: CD Cloud
+# Remote gateway: 111.93.105.18
+# Authentication method Pre-shared key: Welc0meCDCl0ud (For windows only)
+# Port no: 10443
+# Username ajay.sharma
+# Password  d}N4(NcmJ#bw._r3
+# 6) 
+# Sandbox
+# cspbisqlserversandbox.database.windows.net	
+# User: usrrahul
+# Password :  bB#mL01L7928 / pB|isa2BlTE928
+# PowerBIsandbox
+# pB|isa2BlTE928
+
+# 7)
+# https://msprod.corestack.io/
+# Admin.redapt 
+# W#gb3%aOFSJj
+
+
+# 8)
+# https://dev3.corestack.io/site/login
+
+# snegha_msp/core@123
+
+# 8)
+# https://dev3.corestack.io/site/login
+
+# snegha_cplus/core@123
+
+# 8)
+# https://dev3.corestack.io/site/login
+
+# test_1_completecycle/core@123

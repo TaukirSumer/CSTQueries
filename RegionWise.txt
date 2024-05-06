@@ -1,0 +1,44 @@
+---> To check the region
+
+db.getCollection('resource_wise_billing_daily_v2').distinct("Region",{"service_account_id" : ObjectId("6597d1b90b48ed6150d9ecc6"),
+"year": "2023-11"})
+
+===================================================
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate({$match: { $and: [{
+"service_account_id" : ObjectId("6597d1b90b48ed6150d9ecc6"),  
+//"Unit" : "USD", 
+"ResourceCategory":"Standard - E4",
+//"Region": "us-east-1",
+"year": "2023-11"
+}]}}
+,{
+$group: {
+_id: null,
+ "ResourceCategory": {$first: "$ResourceCategory"},
+ "Region":{$first:"Region"},
+ 
+"TotalAmount": {
+$sum: "$ResourceCost"
+}
+}
+})
+
+=====================================================
+
+db.getCollection('resource_wise_billing_monthly').aggregate({$match: { $and: [{
+"service_account_id" : ObjectId("612ce57eafb269b0220b48ac"),  
+"Unit" : "USD", 
+"Region": "us-east-1",
+"year": "2021-06"
+}]}}
+,{
+$group: {
+_id: null,
+"TotalAmount": {
+$sum: "$ResourceCost"
+}
+}
+})
+
+

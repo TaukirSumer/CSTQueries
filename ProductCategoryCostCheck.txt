@@ -1,0 +1,12 @@
+--->Azure, GCP , OCI product category wise cost check 
+
+db.getCollection('resource_wise_billing_daily').aggregate([
+{"$match": {
+"service_account_id": ObjectId("65c34dce459b7bd707c67264"),
+"ProductCategory" : "Support",
+"year" : "2023-12",
+}
+},
+{"$group": {
+"_id": null,
+"cost": {"$sum": "$ResourceCost" }}}])

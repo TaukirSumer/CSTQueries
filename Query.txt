@@ -1,0 +1,17 @@
+# Operation Governance
+
+# Reference bug 77493 Mismatch in threshold values for some metrics 
+
+# Maximum , minimum threshold value AWS Utilization based on metrics
+
+# ReadIOPS
+# BurstBalance
+# BucketSizeBytes
+# CPUUtilization
+
+db.getCollection('service_resource_metric_master').find({"metric_name":"ReadIOPS"})
+
+
+# Note : Need to add resource only for AWS ,OCI 
+
+db.getCollection('service_resource_metric_master').find({"metric_name":"ReadIOPS","resource" : "Domain"})

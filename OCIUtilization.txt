@@ -1,0 +1,19 @@
+---> Oci Utilization based on metric , to check the data availibility
+
+db.getCollection('cloud_account_data_collection_daily').find({
+"service_name": "OCI",
+"service_account_id" : ObjectId("6597f68d0b48ed6150d9ee82"),
+//GCP 1680584344040423 240129 150911
+"metric_value.timestamp": {"$gte": ISODate("2024-02-01T00:00:00.000Z") }
+})
+ .sort({"metric_value.Timestamp": 1})
+
+======================================================================
+
+ db.getCollection('resource_wise_billing_daily_v2').find({}) 
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate([ { $match: { $and: [ { "service_account_id": ObjectId("659bc13d0b48ed6150d9fcb2"), 
+"billdate": { $gte: "2024-03-01", $lte: "2024-03-31" }, // Filtering for the month of March 2024 } ] } }, 
+{ $group: { _id: "$billdate", TotalAmount: { $sum: "$ResourceCost" } } }, 
+{ $facet: { "maxCostDate": [ { $sort: { TotalAmount: -1 } }, { $limit: 1 } ],
+ "minCostDate": [ { $sort: { TotalAmount: 1 } }, { $limit: 1 } ] } } ])

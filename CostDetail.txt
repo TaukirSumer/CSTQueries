@@ -1,0 +1,43 @@
+--- > To get the cost details from id 
+
+Month Wise
+===========
+
+db.getCollection('resource_wise_billing_daily').find({})
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate({$match: { $and: [{
+"service_account_id" : ObjectId("65264d4cbe174a3ef51efaec"),
+"year": "2023-11",
+//"billdate" : "2022-12-25",
+}]}}
+,{
+$group: {
+_id: null,
+"TotalAmount": {
+$sum:
+"$ResourceCost"
+}
+}
+})
+
+
+--------------------------------------------------------------------------------------------
+
+Date Wise
+=========
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate({$match: { $and: [{
+"service_account_id" : ObjectId("65264d4cbe174a3ef51efaec"),
+//"year": "2023-11",
+"billdate" : "2022-12-25",
+}]}}
+,{
+$group: {
+_id: null,
+"TotalAmount": {
+$sum:
+"$ResourceCost"
+}
+}
+})
+

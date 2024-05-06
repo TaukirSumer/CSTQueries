@@ -1,0 +1,73 @@
+--> Template Page
+
+db.getCollection("template_job").find({"service_accounts.id" :"65a7bdbd37bf61d1465d9fec",
+   $or: [
+    { "status": "CREATE_FAILED" },
+    { "status": "FAILED" },
+    { "status": "COMPLETED" }
+  ] ,"is_deleted" : false,
+})
+
+--------------------------------------
+
+--> Policy Page
+
+db.getCollection("policy_job").find({"service_accounts.id" :"65a7bdbd37bf61d1465d9fec",
+   $or: [
+    { "status": "CREATE_FAILED" },
+    { "status": "FAILED" },
+    { "status": "COMPLETED" }
+  ] ,"is_deleted" : false,
+})
+
+
+-----------------------------------------
+
+---> Script Page
+
+db.getCollection('script_job').count({
+#   //  "_id":ObjectId("65d89fcd70460d4e8548d252"),
+    "project_name": "QA_MSP_Migration",
+    "completed_at":{$exists:true},
+    "created_at": {
+       $gte: ISODate("2023-08-23T00:00:00.000Z"),
+       $lte: ISODate("2024-03-30T00:00:00.000Z"),
+   },
+    "status" : "COMPLETED",
+   "is_deleted" : false
+})
+
+-----------------------------------------
+
+
+--> Bluprint Page
+
+db.getCollection('blueprint_job').count({
+#   //  "_id":ObjectId("65d89fcd70460d4e8548d252"),
+    "project_name": "QA_MSP_Migration",
+    "completed_at":{$exists:true},
+    "created_at": {
+       $gte: ISODate("2024-02-07T00:00:00.000Z"),
+       $lte: ISODate("2024-04-02T00:00:00.000Z"),
+   },
+    "status" : "COMPLETED",
+   "is_deleted" : false
+    })
+
+---------------------------------------
+
+db.getCollection('blueprint_job').count({
+    "jobs.execution.service_accounts.id":"6597c81d0b48ed6150d9ec52",
+    "project_name": "QA_MSP_Migration",
+    "completed_at":{$exists:true},
+    "created_at": {
+       $gte: ISODate("2024-02-27T00:00:00.000Z"),
+       $lte: ISODate("2024-03-23T00:00:00.000Z"),
+   },
+    "status" : "COMPLETED",
+   //"is_deleted" : false
+    })
+
+
+
+===============================================================

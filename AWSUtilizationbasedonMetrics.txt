@@ -1,0 +1,25 @@
+---> AWS Utilization based on metrics
+
+var count = db.getCollection('cloud_account_data_collection_daily').distinct("resourceId",{  
+    "service_account_id" : ObjectId("6597a7d80b48ed6150d9eb29"),
+    //"LinkedAccountId" : "364131552933",
+    "metric_name" : "BucketSizeBytes"
+});
+
+var countvalue = count.length;
+print(count);
+print("Count of distinct elements: " + countvalue);
+
+
+-------------------------------------------------------------------------------------------------
+
+db.getCollection('cloud_account_data_collection_daily').find({
+    "resourceId":"es098",
+    "service_account_id": ObjectId("6597ab830b48ed6150d9eb68"),
+    //"LinkedAccountId": "364131552933",
+    "metric_name": "ReadIOPS",
+    "to_date": {
+        "$gte": ISODate("2024-02-07T00:00:00.000Z"),
+        "$lte": ISODate("2024-04-06T23:59:59.999Z")
+    }
+});
