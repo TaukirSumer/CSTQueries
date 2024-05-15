@@ -1,0 +1,5 @@
+db.getCollection("ri_recommendations").
+find({"service_account_id":"65c5e4a875da53785a47da52",
+"term": 1.0,
+"reservation_type" : "Amazon Elastic Compute Cloud Compute",
+"payment option": "No_Upfront"})

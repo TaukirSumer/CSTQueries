@@ -1,0 +1,17 @@
+db.getCollection("resource_wise_billing_daily_v2").aggregate([
+    {
+        $match: {
+            "service_account_id": ObjectId("6597f68d0b48ed6150d9ee82"),
+            "ProductCategory": "Compute",
+            "ResourceCategory": "Standard - E4 - Memory",
+            "year": "2024-03",
+            "ResourceName" : "ocid1.instance.oc1.me-dubai-1.anshqljrhe2stfaccljbxtgzzrzz3i5kho27vgthoak5ssymtzgnjj6rc4hq"
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            totalResourceCost: { $sum: "$ResourceCost" }
+        }
+    }
+])
