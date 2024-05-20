@@ -41,3 +41,26 @@ $sum:
 }
 })
 
+Forecast Query 
+--------------
+
+
+db.getCollection('resource_wise_billing_daily_v2').aggregate([
+  {
+    $match: {
+      $and: [
+        { "year": "2024-05" },
+        { "service_account_id": { $in: [
+          ObjectId("65c5e4a875da53705a47da52")
+         // ObjectId("662£36992a7b41582f83be53")
+        ]}}
+      ]
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      "TotalAmount": { $sum: "$ResourceCost" }
+    }
+  }
+])

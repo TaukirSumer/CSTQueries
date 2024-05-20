@@ -1,0 +1,6 @@
+db.getCollection("ri_recommendations").find({
+"service_account_id" : "65c5e4a875da53705a47da52",
+"term" : 1.0,
+"look_back_period" : 30.0,
+"payment_option" : "No_Upfront",    
+})

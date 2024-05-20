@@ -23,3 +23,41 @@ db.getCollection('cloud_account_data_collection_daily').find({
         "$lte": ISODate("2024-04-06T23:59:59.999Z")
     }
 });
+
+--------------------------------------------------------------------------
+
+db.getCollection('cloud_account_data_collection_daily').find({
+   "resourceId": "1234-vignesh",
+   "service_account_id": ObjectId("6597ae160b48ed6150d9eb8b"),
+   //"LinkedAccountId": "364131552933",
+   "metric_name": "BucketSizeBytes",
+   "to_date": {
+       "$gte": ISODate("2024-02-09T00:00:00.000Z"),
+       "$lte": ISODate("2024-04-09T23:59:59.999Z")
+   },
+   "metric_value": {
+       "$elemMatch": {
+           "Average": { "$gte": 0.01 }
+       } }})
+
+----------------------------------------------------------------------
+
+db.getCollection('cloud_account_data_collection_daily').find({
+"service_account_id" : ObjectId("6597f68d0b48ed6150d9ee82"),
+ "metric_name" : "BytesSent",  
+"resourceId" : "ocid1.loadbalancer.oc1.phx.aaaaaaaaxxfkn6kv7h7wolkmpscu3dlxvtc3wepwn2sqngmghs7yhrk5wcoq",  
+ "metric_value.timestamp": {"$gte": ISODate("2024-04-17T00:00:00.000Z"),
+     $lte: ISODate("2024-04-18T00:00:00.000Z")}
+    }).sort({"metric_value.timestamp": -1})
+    
+ 
+
+db.getCollection('cloud_account_data_collection_daily').distinct("metric_value.Sum", {
+    "service_account_id": ObjectId("6597f68d0b48ed6150d9ee82"),
+    "metric_name": "BytesSent",
+    "resourceId": "ocid1.loadbalancer.oc1.phx.aaaaaaaaxxfkn6kv7h7wolkmpscu3dlxvtc3wepwn2sqngmghs7yhrk5wcoq",
+    "metric_value.timestamp": {
+        "$gte": ISODate("2024-04-17T00:00:00.000Z"),
+        "$lte": ISODate("2024-04-18T00:00:00.000Z")
+    }
+})

@@ -15,3 +15,4 @@ db.getCollection("resource_wise_billing_daily_v2").aggregate([
         }
     }
 ])
+

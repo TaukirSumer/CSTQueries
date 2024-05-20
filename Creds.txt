@@ -46,13 +46,9 @@ Creds :-
 # Port no: 10443
 # Username ajay.sharma
 # Password  d}N4(NcmJ#bw._r3
+
 # 6) 
-# Sandbox
-# cspbisqlserversandbox.database.windows.net	
-# User: usrrahul
-# Password :  bB#mL01L7928 / pB|isa2BlTE928
-# PowerBIsandbox
-# pB|isa2BlTE928
+
 
 # 7)
 # https://msprod.corestack.io/
@@ -74,3 +70,28 @@ Creds :-
 # https://dev3.corestack.io/site/login
 
 # test_1_completecycle/core@123
+
+finops_msp
+core@123
+
+QA
+----
+Server Name : corestacksandbox.database.windows.net 
+Login : Corestack
+Pwd : HKN9@3j+F3 
+Connect to Database : PowerBIQA
+
+Dev3
+-----
+Server name :  cspbisqlserverdev3.database.windows.net
+Login  : csadmin
+password  :
+Database : PowerBIdev3
+
+Sandbox
+--------
+cspbisqlserversandbox.database.windows.net	
+User: usrrahul
+Password :  bB#mL01L7928 / pB|isa2BlTE928
+PowerBIsandbox
+pB|isa2BlTE928
