@@ -1,0 +1,185 @@
+db.getCollection('ri_recommendations').aggregate([
+    {
+        $match: {
+            service_account_id: {
+                $in: ['659be6cd0b48ed6150da9d4d', '65d379ad163584a572dd25cc', '6597e9450b48ed6150d9ed72', '65d34ae31bf963b30d29ca36']
+            },
+            service_name: { $in: ['AWS', 'Azure', 'GCP'] },
+            currency_code: 'USD',
+            term: 1,
+            payment_option: { $in: [null, 'No_Upfront'] },
+            look_back_period: { $in: [null, 30] },
+            $or: [
+                { service_name: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { recommendation_id: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { project_name: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { reservation_name: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { reservation_type: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { reservation_description: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { reservation_sku: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { region: { $regex: 'QA_AWS_364131552933_master_Assessment', $options: 'i' } },
+                { service_account_id: { $in: ['6597e9450b48ed6150d9ed72'] } }
+            ],
+            project_id: { $in: ['6597e79e919f58a1097853b9'] }
+        }
+    },
+    {
+        $group: {
+            _id: {
+                service_account_id: "$service_account_id",
+                recommendation_id: "$recommendation_id"
+            },
+            project_name: { $first: "$project_name" },
+            reservation_type: { $first: "$reservation_type" },
+            reservation_sku: { $first: "$reservation_sku" },
+            region: { $first: "$region" },
+            recommended_quantity: { $first: "$recommended_quantity" },
+            project_id: { $first: "$project_id" },
+            service_name: { $first: "$service_name" },
+            estimated_savings: { $max: "$estimated_savings" },
+            term: { $first: "$term" },
+            payment_option: { $first: "$payment_option" }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            service_account_id: "$_id.service_account_id",
+            project_name: 1,
+            reservation_type: 1,
+            reservation_sku: 1,
+            region: 1,
+            recommended_quantity: 1,
+            project_id: 1,
+            payment_option: {
+                $ifNull: ["$payment_option", "No_Upfront"]
+            },
+            service_name: 1,
+            estimated_savings: 1,
+            calculated_savings: 1,
+            term: 1
+        }
+    },
+    {
+        $sort: {
+            estimated_savings: -1
+        }
+    }
+])
+
+
+
+==========================================================================================
+
+-->$match Stage:
+
+*Filters documents in the ri_recommendations collection based on various criteria:
+service_account_id must be one of four specific IDs.
+service_name must be one of 'AWS', 'Azure', or 'GCP'.
+currency_code must be 'USD'.
+term must be 1.
+payment_option must be either null or 'No_Upfront'.
+look_back_period must be either null or 30.
+One or more fields must match the regex 'QA_AWS_364131552933_master_Assessment' (case-insensitive).
+Additionally, project_id must be '6597e79e919f58a1097853b9'.
+
+-->$group Stage:
+
+*Groups the matched documents by service_account_id and recommendation_id.
+*For each group, it collects:
+The first project_name, reservation_type, reservation_sku, region, recommended_quantity, project_id, service_name, and term.
+The maximum estimated_savings.
+The first payment_option.
+
+-->$project Stage:
+
+*Reshapes each document in the group output:
+Excludes the _id field.
+Includes service_account_id, project_name, reservation_type, reservation_sku, region, recommended_quantity, project_id, service_name, estimated_savings, term, and calculated_savings.
+Sets payment_option to 'No_Upfront' if it is null.
+
+-->$sort Stage:
+Sorts the resulting documents by estimated_savings in descending order
+
+
+===============================================================================
+
+
+
+OLD 
+
+
+db.getCollection('ri_recommendations').aggregate([{"$match":
+    {'service_account_id': {'$in': ['659be6cd0b48ed6150da9d4d', '65d379ad163584a572dd25cc', '6597e9450b48ed6150d9ed72', '65d34ae31bf963b30d29ca36']},
+    'service_name': {'$in': ['AWS', 'Azure', 'GCP']}, 'currency_code': 'USD', 'term': 1, 'payment_option': {'$in': [null, 'No_Upfront']},
+    'look_back_period': {'$in': [null, 30]}, '$or': [{'service_name': {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}},
+    {'recommendation_id': {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}}, {'project_name':
+        {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}}, {'reservation_name': {'$regex': 'QA_AWS_364131552933_master_Assessment',
+            '$options': 'i'}}, {'reservation_type': {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}}, {'reservation_description':
+                {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}}, {'reservation_sku': {'$regex': 'QA_AWS_364131552933_master_Assessment',
+                    '$options': 'i'}}, {'region': {'$regex': 'QA_AWS_364131552933_master_Assessment', '$options': 'i'}}, {'service_account_id': {'$in':
+                        ['6597e9450b48ed6150d9ed72']}}], 'project_id': {'$in': ['6597e79e919f58a1097853b9']}}},
+                       
+                        {
+                "$group": {
+                    "_id": {
+                        "service_account_id": "$service_account_id",
+                        "recommendation_id": "$recommendation_id"
+                    },
+                    "project_name": {
+                        "$first": "$project_name"
+                    },
+                    "reservation_type": {
+                        "$first": "$reservation_type"
+                    },
+                    "reservation_sku": {
+                        "$first": "$reservation_sku"
+                    },
+                    "region": {
+                        "$first": "$region"
+                    },
+                    "recommended_quantity": {
+                        "$first": "$recommended_quantity"
+                    },
+                    "project_id": {
+                        "$first": "$project_id"
+                    },
+                    "service_name": {
+                        "$first": "$service_name"
+                    },
+                    "estimated_savings": {
+                        "$max": "$estimated_savings"
+                    },
+                    "term": {
+                        "$first": "$term"
+                    },
+                    'payment_option': {
+                        '$first': '$payment_option'
+                    },
+                }
+            },
+            {
+                "$project": {
+                    "_id": 0,
+                    "service_account_id": "$_id.service_account_id",
+                    "project_name": 1,
+                    "reservation_type": 1,
+                    "reservation_sku": 1,
+                    "region": 1,
+                    "recommended_quantity": 1,
+                    "project_id": 1,
+                    "payment_option": {
+                        "$ifNull": ["$payment_option", "No_Upfront"]
+                    },
+                    "service_name": 1,
+                    "estimated_savings": 1,
+                    "calculated_savings": 1,
+                    "term": 1
+                }
+            },
+            {
+                "$sort": {
+                    "estimated_savings": -1
+                }
+            }
+                        ])
